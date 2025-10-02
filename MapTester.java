@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 /**
  * Write a description of class MapTester here.
  *
@@ -33,4 +34,16 @@ public class MapTester
         return phoneBook.get(name);
         
     }
-}
+    public boolean containsKey(String name)
+    {  
+        for (String key : phoneBook.keySet()){
+            if(key.equals(name)){
+                System.out.println(name + " is in the map");
+                return true;
+            }
+               
+               }
+               System.out.println(name + " is not in the map");
+               return false;
+               }
+    }   
