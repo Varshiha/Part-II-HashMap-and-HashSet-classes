@@ -46,4 +46,8 @@ public class MapTester
                System.out.println(name + " is not in the map");
                return false;
                }
-    }   
+    public void printAllKeys()
+    {
+      System.out.println("All keys in the map: " + phoneBook.keySet());
+    }
+}
