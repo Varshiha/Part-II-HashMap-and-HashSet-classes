@@ -45,4 +45,11 @@ int size()
 Collection<V> values()
 I think the same type could be used for the same parameter.
 
+26. You use the size() method. So, map.size()
+
+28. When I add the same key with a different value, it updates the value of that key. So, the number becomes 12 instead of the previous one which was 5 when you call the lookupNumber method.
+
+29.The map stored both of them even though had the same value, but different keys. I think only the keys have to be different.
+
+
 
