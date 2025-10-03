@@ -31,7 +31,7 @@ public class InputReader
         // print prompt
         System.out.print("> ");         
         String input = reader.nextLine().trim().toLowerCase();
-        String[] inputArray = input.split("");
+        String[] inputArray = input.split("\\s+");
         
         HashSet<String> words = new HashSet<>();
         for(String word : inputArray){

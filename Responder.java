@@ -44,7 +44,7 @@ public class Responder
       String crash = "Tell me exactly what happened in detail.";
       responseMap.put("crashed", crash);
       responseMap.put("frozen", crash);
-      responseMap.put("Thank you", "You are welcome.");
+      responseMap.put("thank you", "You are welcome.");
       responseMap.put("bug", "Did you try unplugging it and plugging it again");
     }
     /**
@@ -53,23 +53,33 @@ public class Responder
      * @return  A string that should be displayed as the response
      */
     public String generateResponse(HashSet<String> words)
-    {
-     for (String word : words){
-        String response = responseMap.get(word);
+    { ArrayList<String> matches = new ArrayList<>();
+        
+      for (String word : words){
+        String response = responseMap.get(word.toLowerCase());
         if (response != null){
-        return response;
+        matches.add(response);
+       }
         }
-     }
-     return pickDefaultResponse();
-     
-     
+         if (matches.size() == 1) {
+        return matches.get(0); // one keyword matched
+       } 
+        else if (matches.size() > 1) {
+        return "You mentioned several issues: " + matches; // multiple matches
+       } 
+       else {
+        return pickDefaultResponse(); // no matches
     }
-    public String generateResponse(String word)
-{
+     }
+    
+     
+    
+    public String generateResponse(String word) {
     HashSet<String> set = new HashSet<>();
     set.add(word);
-    return generateResponse(set);  // reuse the HashSet version
+    return generateResponse(set);
 }
+
     public String pickDefaultResponse()
     {
        if (responses.isEmpty()){
@@ -91,7 +101,7 @@ public class Responder
     {
         responses.add("That sounds odd. Could you describe this in more detail?");
         responses.add("""
-                      No other customer has ever complained about this before.
+        No other customer has ever complained about this before.
                       What is your system configuration?
                       """);
         responses.add("I need a bit more information on that.");
@@ -106,5 +116,7 @@ public class Responder
         responses.add("Have you tried running the app on your phone?");
         responses.add("I just checked StackOverflow - they don't know either.");
     }
+   
+
 }
 
