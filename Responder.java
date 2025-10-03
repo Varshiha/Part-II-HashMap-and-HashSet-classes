@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.HashSet;
 import java.util.HashMap;
-import java.util.Iterator;
+
 
 /**
  * The responder class represents a response generator object. It is used
@@ -18,6 +18,8 @@ public class Responder
     private Random randomGenerator;
     private ArrayList<String> responses;
     private HashMap<String, String>responseMap;
+    private String lastResponse;
+   
 
     /**
      * Construct a Responder
@@ -26,9 +28,22 @@ public class Responder
     {
         randomGenerator = new Random();
         responses = new ArrayList<>();
+        responseMap = new HashMap<>();
+        fillResponses();
         fillResponseMap();
+        lastResponse = null;
+        
+        
+       
     }
-
+    public void fillResponseMap()
+    {
+      responseMap.put("lagging", "You should try restarting the computer.");
+      responseMap.put("crashed", "Tell me exactly what happened in detail.");
+      responseMap.put("Thank you", "You are welcome.");
+      responseMap.put("slow", "Do you have any viruses");
+      responseMap.put("bug", "Did you try unplugging it and plugging it again");
+    }
     /**
      * Generate a response.
      * 
@@ -46,18 +61,17 @@ public class Responder
     }
     public String pickDefaultResponse()
     {
-       return "Could you give me more details? I am not sure what you mean.";
-    }
-    public void fillResponseMap()
-    {
-      responseMap.put("lagging", "You should try restarting the computer.");
-      responseMap.put("crashed", "Tell me exactly what happened in detail.");
-      responseMap.put("Thank you", "You are welcome.");
-      responseMap.put("slow", "Do you have any viruses");
-      responseMap.put("It is not charging", "Did you try unplugging it and plugging it again");
-      responseMap.put("Its not turning on.", "Did you forget to charge before going to sleep?s");
-    }
-
+       if (responses.isEmpty()){
+        return "I am not sure what you mean.";
+        }
+       String response;
+       do{
+        int index = randomGenerator.nextInt(responses.size());
+        response = responses.get(index);
+         }while(response.equals(lastResponse) && responses.size() > 1);
+         lastResponse = response;
+         return response;
+       }
     /**
      * Build up a list of default responses from which we can pick one
      * if we don't know what else to say.
