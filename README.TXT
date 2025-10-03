@@ -51,5 +51,21 @@ I think the same type could be used for the same parameter.
 
 29.The map stored both of them even though had the same value, but different keys. I think only the keys have to be different.
 
+31. Instead of returning the number it returns null. 
 
+34. SIMILARITIES:
+E - the type of elements maintained by this set or list
+Serializable, Cloneable, Iterable<E>, Collection<E>
+They permit the element null
+Basic operations: add, remove, and size
+DIFFERENCES:
+HashSet:  Set<E>, contains
+ArrayList:  List<E>, RandomAccess, SequencedCollection<E>, remove
+
+35. HashSet: the words would not be guaranteed to returne in order and duplicates are not allowed and will be removed.
+ArrayList: the words would be returned in ordered adn duplicates are allowed.
+
+36. They would be empty strings which will crowd the collections.
+
+ 
 
