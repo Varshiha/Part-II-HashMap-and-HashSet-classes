@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * The responder class represents a response generator object. It is used
@@ -14,6 +17,7 @@ public class Responder
 {
     private Random randomGenerator;
     private ArrayList<String> responses;
+    private HashMap<String, String>responseMap;
 
     /**
      * Construct a Responder
@@ -22,7 +26,7 @@ public class Responder
     {
         randomGenerator = new Random();
         responses = new ArrayList<>();
-        fillResponses();
+        fillResponseMap();
     }
 
     /**
@@ -30,13 +34,25 @@ public class Responder
      * 
      * @return  A string that should be displayed as the response
      */
-    public String generateResponse()
+    public String generateResponse(HashSet<String> words)
     {
-        // Pick a random number for the index in the default response 
-        // list. The number will be between 0 (inclusive) and the size
-        // of the list (exclusive).
-        int index = randomGenerator.nextInt(responses.size());
-        return responses.get(index);
+     for (String word : words){
+        String response = responseMap.get(word);
+        if (response != null){
+        return response;
+        }
+     }
+     return pickDefaultResponse();
+    }
+    public String pickDefaultResponse()
+    {
+       return "Could you give me more details? I am not sure what you mean.";
+    }
+    public void fillResponseMap()
+    {
+      responseMap.put("lagging", "You should try restarting the computer.");
+      responseMap.put("crashed", "Tell me exactly what happened in detail.");
+      responseMap.put("Thank you", "You are welcome.");
     }
 
     /**
