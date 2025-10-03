@@ -9,17 +9,36 @@ import java.util.Map;
 public class MapTester
 {
     private HashMap<String, String> phoneBook;
-    
-
+    private HashMap<String, String> responses;
     /**
      * Constructor for objects of class MapTester
      */
     public MapTester()
     {
       phoneBook = new HashMap<>();  
+      responses = new HashMap<>();
+      fillResponsesMap();
     }
-
+    public void fillResponsesMap()
+    {
+      responses.put("lagging", "You should try restarting the computer.");
+      responses.put("crashed", "Tell me exactly what happened in detail.");
+      responses.put("Thank you", "You are welcome.");
+    }
+    public String generateResponse(String word)
+    {
+       if (responses.containsKey(word)){
+        return responses.get(word);
+        }else{
+        return pickDefaultResponse();
+        }
+    }
+    public String pickDefaultResponse()
+    {
+       return "Could you give me more details? I am not sure what you mean.";
+    }
     /**
+     * 
      * An example of a method - replace this comment with your own
      *
      * @param  y  a sample parameter for a method
