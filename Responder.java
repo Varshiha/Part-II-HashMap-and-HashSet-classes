@@ -38,10 +38,13 @@ public class Responder
     }
     public void fillResponseMap()
     {
-      responseMap.put("lagging", "You should try restarting the computer.");
-      responseMap.put("crashed", "Tell me exactly what happened in detail.");
+      String restart= "You should try restarting the computer.";
+      responseMap.put("slow", restart);
+      responseMap.put("lagging", restart);
+      String crash = "Tell me exactly what happened in detail.";
+      responseMap.put("crashed", crash);
+      responseMap.put("frozen", crash);
       responseMap.put("Thank you", "You are welcome.");
-      responseMap.put("slow", "Do you have any viruses");
       responseMap.put("bug", "Did you try unplugging it and plugging it again");
     }
     /**
@@ -58,7 +61,15 @@ public class Responder
         }
      }
      return pickDefaultResponse();
+     
+     
     }
+    public String generateResponse(String word)
+{
+    HashSet<String> set = new HashSet<>();
+    set.add(word);
+    return generateResponse(set);  // reuse the HashSet version
+}
     public String pickDefaultResponse()
     {
        if (responses.isEmpty()){
