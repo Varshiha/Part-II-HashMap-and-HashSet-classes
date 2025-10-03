@@ -19,6 +19,7 @@ public class Responder
     private ArrayList<String> responses;
     private HashMap<String, String>responseMap;
     private String lastResponse;
+    private HashMap<String, String> otherResponses;
    
 
     /**
@@ -32,6 +33,11 @@ public class Responder
         fillResponses();
         fillResponseMap();
         lastResponse = null;
+        otherResponses = new HashMap<>();
+        otherResponses.put("why", "Can you clarify?");
+        otherResponses.put("how", "Can you give more details?");
+        otherResponses.put("who", "Are you asking for someone.");
+
         
         
        
@@ -53,9 +59,10 @@ public class Responder
      * @return  A string that should be displayed as the response
      */
     public String generateResponse(HashSet<String> words)
-    { ArrayList<String> matches = new ArrayList<>();
+    { 
+    ArrayList<String> matches = new ArrayList<>();
         
-      for (String word : words){
+    for (String word : words){
         String response = responseMap.get(word.toLowerCase());
         if (response != null){
         matches.add(response);
@@ -68,8 +75,17 @@ public class Responder
         return "You mentioned several issues: " + matches; // multiple matches
        } 
        else {
-        return pickDefaultResponse(); // no matches
+    
+    for (String word : words) {
+        word = word.toLowerCase();
+        if (otherResponses.containsKey(word)) {
+            return otherResponses.get(word);
+        }
     }
+    
+    return pickDefaultResponse();
+    }
+
      }
     
      
@@ -78,7 +94,7 @@ public class Responder
     HashSet<String> set = new HashSet<>();
     set.add(word);
     return generateResponse(set);
-}
+    }
 
     public String pickDefaultResponse()
     {
@@ -88,7 +104,7 @@ public class Responder
        String response;
        do{
         int index = randomGenerator.nextInt(responses.size());
-        response = responses.get(index);
+         response = responses.get(index);
          }while(response.equals(lastResponse) && responses.size() > 1);
          lastResponse = response;
          return response;
