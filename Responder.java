@@ -53,6 +53,9 @@ public class Responder
       responseMap.put("lagging", "You should try restarting the computer.");
       responseMap.put("crashed", "Tell me exactly what happened in detail.");
       responseMap.put("Thank you", "You are welcome.");
+      responseMap.put("slow", "Do you have any viruses");
+      responseMap.put("It is not charging", "Did you try unplugging it and plugging it again");
+      responseMap.put("Its not turning on.", "Did you forget to charge before going to sleep?s");
     }
 
     /**
